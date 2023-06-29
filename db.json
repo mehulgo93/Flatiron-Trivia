@@ -1,0 +1,54 @@
+{
+  "questions": [
+    {
+      "question": "What is the capital of Australia?",
+      "options": ["Sydney", "Melbourne", "Canberra", "Perth"],
+      "answer": 2
+    },
+    {
+      "question": "Which planet is known as the Red Planet?",
+      "options": ["Venus", "Mars", "Jupiter", "Saturn"],
+      "answer": 1
+    },
+    {
+      "question": "Who wrote the famous novel 'Pride and Prejudice'?",
+      "options": ["Jane Austen", "Emily Bronte", "Charlotte Bronte", "Virginia Woolf"],
+      "answer": 0
+    },
+    {
+      "question": "Which country is known for inventing pizza?",
+      "options": ["Italy", "Greece", "France", "Spain"],
+      "answer": 0
+    },
+    {
+      "question": "Which animal is known as the 'King of the Jungle'?",
+      "options": ["Lion", "Elephant", "Tiger", "Giraffe"],
+      "answer": 0
+    },
+    {
+      "question": "What is the chemical symbol for gold?",
+      "options": ["Ag", "Au", "Fe", "Hg"],
+      "answer": 1
+    },
+    {
+      "question": "Which famous scientist developed the theory of relativity?",
+      "options": ["Isaac Newton", "Albert Einstein", "Galileo Galilei", "Nikola Tesla"],
+      "answer": 1
+    },
+    {
+      "question": "Which city hosted the 2016 Summer Olympics?",
+      "options": ["Rio de Janeiro", "London", "Beijing", "Tokyo"],
+      "answer": 0
+    },
+    {
+      "question": "What is the largest organ in the human body?",
+      "options": ["Heart", "Liver", "Brain", "Skin"],
+      "answer": 3
+    },
+    {
+      "question": "Which artist painted the famous artwork 'The Starry Night'?",
+      "options": ["Pablo Picasso", "Vincent van Gogh", "Leonardo da Vinci", "Claude Monet"],
+      "answer": 1
+    }
+  ]
+}

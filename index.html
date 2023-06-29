@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Trivia Game</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f1f1f1;
+    }
+  
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+  
+    #question {
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: #333;
+    }
+  
+    .option {
+      font-size: 18px;
+      margin-bottom: 10px;
+      padding: 10px;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+  
+    .option:hover {
+      background-color: #f9f9f9;
+    }
+  
+    #submit {
+      font-size: 18px;
+      padding: 10px 20px;
+      background-color: #333;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+  
+    #submit:hover {
+      background-color: #555;
+    }
+  
+    #result {
+      font-size: 18px;
+      margin-top: 20px;
+      color: #333;
+    }
+  </style>
+  
+</head>
+<body>
+  <h1>Welcome to Flatiron Trivia!</h1>
+  <div id="question"></div>
+  <div id="options"></div>
+  <button id="submit">Submit</button>
+  <div id="result"></div>
+
+  <script defer src="./index.js"></script>
+</body>
+</html>
