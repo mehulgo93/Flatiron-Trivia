@@ -116,7 +116,7 @@ fetch('http://localhost:3000/questions')
           // Add the congratulations image
           const congratulationsImg = document.createElement('img');
           congratulationsImg.src = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCa5zD0wgE-pYkG79Pr648a6cTaNnJB97HQw&usqp=CAU';
-          congratulationsImg.alt = 'Congratulations, You Chose Wisely!';
+          congratulationsImg.alt = alert('Congratulations, You Chose Wisely!')
           congratulationsImg.style.width = '300px';
           congratulationsImg.style.marginTop = '20px auto';
           resultContainer.appendChild(congratulationsImg);
