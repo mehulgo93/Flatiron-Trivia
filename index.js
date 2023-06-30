@@ -1,65 +1,149 @@
-
-let currentQuestionIndex = 0;
-let score = 0;
-
-let questionElement = document.getElementById("question");
-let optionsElement = document.getElementById("options");
-let resultElement = document.getElementById("result");
-let submitButton = document.getElementById("submit");
-
-// Fetch the JSON data from db.json
-fetch("http://localhost:3000/questions")
+// Fetch the questions from the JSON server
+fetch('http://localhost:3000/questions')
   .then(response => response.json())
-  .then(data => {
-    // Assign the questions from the JSON data to the 'questions' variable
-    let questions = data.questions;
+  .then(questions => {
+    let currentQuestionIndex = 0;
+    let score = 0;
 
-    // Function to display the current question
+    const questionContainer = document.getElementById('question');
+    const optionsContainer = document.getElementById('options');
+    const submitButton = document.getElementById('submit');
+    const resultContainer = document.getElementById('result');
+
+    // Display the current question and options
     function displayQuestion() {
-      let currentQuestion = questions[currentQuestionIndex];
-      questionElement.textContent = currentQuestion.question;
-      optionsElement.innerHTML = "";
+      const currentQuestion = questions[currentQuestionIndex];
+      questionContainer.textContent = currentQuestion.question;
 
-      currentQuestion.options.forEach(function(option, index) {
-        let optionElement = document.createElement("div");
-        optionElement.className = "option";
+      optionsContainer.innerHTML = '';
+      currentQuestion.options.forEach((option, index) => {
+        const optionElement = document.createElement('div');
+        optionElement.classList.add('option');
         optionElement.textContent = option;
-        optionElement.addEventListener("click", function() {
-          handleAnswer(index);
-        });
-        optionsElement.appendChild(optionElement);
+        optionElement.dataset.index = index;
+        optionsContainer.appendChild(optionElement);
+
+        // Add event listeners to each option
+        optionElement.addEventListener('click', selectOption);
+        optionElement.addEventListener('mouseover', handleMouseOver);
+        optionElement.addEventListener('mouseout', handleMouseOut);
       });
     }
 
-    // Function to handle the user's answer
-    function handleAnswer(selectedIndex) {
-      let currentQuestion = questions[currentQuestionIndex];
-      if (selectedIndex === currentQuestion.answer) {
-        score++;
-        resultElement.textContent = "Correct!";
-      } else {
-        resultElement.textContent = "Wrong!";
-      }
+    // Handle option selection
+    function selectOption(event) {
+      const selectedOption = event.target;
+      const selectedIndex = selectedOption.dataset.index;
+      const currentQuestion = questions[currentQuestionIndex];
 
+      // Add styles to the selected option
+      optionsContainer.querySelectorAll('.option').forEach(option => {
+        option.classList.remove('selected');
+      });
+      selectedOption.classList.add('selected');
+
+      // Enable the submit button
+      submitButton.disabled = false;
+
+      // Check if the selected option is correct
+      if (parseInt(selectedIndex) === currentQuestion.answer) {
+        selectedOption.classList.add('correct');
+      } else {
+        selectedOption.classList.add('incorrect');
+      }
+    }
+
+    // Handle submission of the answer
+    function submitAnswer() {
+      const selectedOption = optionsContainer.querySelector('.selected');
+      const currentQuestion = questions[currentQuestionIndex];
+
+      if (selectedOption) {
+        // Disable the submit button
+        submitButton.disabled = true;
+
+        // Disable option selection
+        optionsContainer.querySelectorAll('.option').forEach(option => {
+          option.removeEventListener('click', selectOption);
+          option.removeEventListener('mouseover', handleMouseOver);
+          option.removeEventListener('mouseout', handleMouseOut);
+        });
+
+        // Check if the selected option is correct
+        if (parseInt(selectedOption.dataset.index) === currentQuestion.answer) {
+          score++;
+          selectedOption.classList.add('correct');
+          resultContainer.textContent = 'Correct!';
+          resultContainer.style.color = 'rgb(0, 255, 0)';
+        } else {
+          selectedOption.classList.add('incorrect');
+          resultContainer.textContent = 'Incorrect!';
+          resultContainer.style.color = 'rgb(255, 0, 0)';
+        }
+
+        // Move to the next question after a delay
+        setTimeout(() => {
+          nextQuestion();
+        }, 1000);
+      }
+    }
+
+    // Move to the next question
+    function nextQuestion() {
       currentQuestionIndex++;
 
       if (currentQuestionIndex < questions.length) {
         displayQuestion();
+        resultContainer.textContent = '';
+
+        // Enable option selection for the next question
+        optionsContainer.querySelectorAll('.option').forEach(option => {
+          option.addEventListener('click', selectOption);
+          option.addEventListener('mouseover', handleMouseOver);
+          option.addEventListener('mouseout', handleMouseOut);
+          option.classList.remove('selected', 'correct', 'incorrect');
+        });
+
+        // Enable the submit button for the next question
+        submitButton.disabled = false;
       } else {
-        showFinalScore();
+        // Display the final score
+        const percentage = (score / questions.length) * 100;
+        resultContainer.textContent = `Final Score: ${score}/${questions.length} (${percentage}%)`;
+
+        // Check if the participant got a perfect score
+        if (score === questions.length) {
+          // Add the congratulations image
+          const congratulationsImg = document.createElement('img');
+          congratulationsImg.src = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCa5zD0wgE-pYkG79Pr648a6cTaNnJB97HQw&usqp=CAU';
+          congratulationsImg.alt = 'Congratulations, You Chose Wisely!';
+          congratulationsImg.style.width = '300px';
+          congratulationsImg.style.marginTop = '20px auto';
+          resultContainer.appendChild(congratulationsImg);
+        }
+
+        submitButton.disabled = true;
       }
     }
 
-    // Function to show the final score
-    function showFinalScore() {
-      questionElement.textContent = "";
-      optionsElement.innerHTML = "";
-      submitButton.style.display = "none";
-      resultElement.textContent = "Your score: " + score + " out of " + questions.length;
+    // Handle mouseover event
+    function handleMouseOver(event) {
+      event.target.classList.add('highlight');
+      event.target.style.backgroundColor = 'lightblue';
     }
 
-    // Start the game
+    // Handle mouseout event
+    function handleMouseOut(event) {
+      event.target.classList.remove('highlight');
+      event.target.style.backgroundColor = '';
+    }
+
+    // Event listeners
+    submitButton.addEventListener('click', submitAnswer);
+
+    // Display the first question
     displayQuestion();
   })
-  .catch(error => console.error("Error fetching JSON data:", error));
-
+  .catch(error => {
+    console.error('Error:', error);
+  });
