@@ -1,4 +1,4 @@
-# Phase1--project
+# Flatiron-Trivia
 The Trivia Game project:
 
 
