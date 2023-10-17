@@ -1,7 +1,9 @@
 
 
 # 🎓 **Flatiron-Trivia: Test Your Knowledge!**  
-🖼️ *["https://user-images.githubusercontent.com/111099204/276011723-f586def6-1d20-40ed-93f2-fcf3bd4accc9.png"]*
+
+🖼️ 
+![Screenshot of the website](https://user-images.githubusercontent.com/111099204/276011723-f586def6-1d20-40ed-93f2-fcf3bd4accc9.png)
 
 **Welcome to Flatiron-Trivia!** Step into the world of quizzes and challenge yourself with intriguing questions designed to test your wit and knowledge.
 
